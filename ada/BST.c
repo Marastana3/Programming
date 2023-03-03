@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-
 struct node {
  int key;
  struct node* left;
@@ -50,22 +48,24 @@ void insert(Node* root, Node z) {
 void inorder(Node root) {
     if(root != NULL){
         inorder(root->left);
-        printf("%d", root->key);
+        printf("%d ", root->key);
         inorder(root->right);
     }
 }
 
-int height(Node root, int h) {
-    if(!root){
-        return h;
-    }
+int height(Node root) {
+    if(root == NULL)
+        return 0;
     else{
-        int heightLeft = height(root->left, h+1);
-        int heightRight = height(root->right, h+1);
+
+        int heightLeft = height(root->left);
+        int heightRight = height(root->right);
+
+        if (heightLeft > heightRight)
+            return (heightLeft + 1);
+        else
+            return (heightRight + 1);
     }
-
-    return max(heightLeft, heightRight);
-
 }
 
 
@@ -76,7 +76,7 @@ int search(Node root, int key) {
         else
             root = root->right;
     }
-    return root;
+    return root->key;
 }
 
 
@@ -90,10 +90,14 @@ int main()
     insert(&tree,newNode(10));
     insert(&tree,newNode(5));
 
+    printf("The order is: ");
     inorder(tree);
+    printf("\n");
 
     int h= height(tree);
 
     int found = search(tree, 10);
+
+    printf("height: %d, found: %d\n", h, found);
 
 }

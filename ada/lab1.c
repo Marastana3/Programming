@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-//comparison function used by the qsort to sort the array in ascending order
+//Comparison function used by the qsort to sort the array in ascending order
 int cmpfunc(const void *a, const void *b) {
     int x = *(const int *)a;
     int y = *(const int *)b;
@@ -39,12 +39,12 @@ int countTripletsSumEfficient(int arr[], int n, int sum) {
 }
 
 // Brute force version of CountTripletsSum
-int countTripletsSumBruteForce(int arr[], int n, int V) {
+int countTripletsSumBruteForce(int arr[], int n, int sum) {
     int count = 0;
     for (int i = 0; i < n - 2; i++) {
         for (int j = i + 1; j < n - 1; j++) {
             for (int k = j + 1; k < n; k++) {
-                if (arr[i] + arr[j] + arr[k] == V) {
+                if (arr[i] + arr[j] + arr[k] == sum) {
                     count++;
                 }
             }
@@ -53,22 +53,26 @@ int countTripletsSumBruteForce(int arr[], int n, int V) {
     return count;
 }
 
-int main() {
+int main(void) {
     FILE *file;
     //file = fopen("10int_1.txt", "r");
     //file = fopen("1Kint_1.txt", "r");
     //file = fopen("2Kint_1.txt", "r");
+    //file = fopen("3Kint_1.txt", "r");
     //file = fopen("4Kint_1.txt", "r");
+    //file = fopen("5Kint_1.txt", "r");
     //file = fopen("10Kint_1.txt", "r");
     //file = fopen("15Kint_1.txt", "r");
-    file = fopen("30Kint_1.txt", "r");
-    //file = fopen("50Kint_1.txt", "r");
+    //file = fopen("20Kint_1.txt", "r");
+    //file = fopen("30Kint_1.txt", "r");
+    //file = fopen("40Kint_1.txt", "r");
+    file = fopen("50Kint_1.txt", "r");
 
     if (file == NULL) {
         printf("Error opening file\n");
         exit(-1);
     }
-    int n;
+    int n; //Numbers of elements of the array read from file
     fscanf(file, "%d", &n);
     int *arr = malloc(n * sizeof(int));
     for (int i = 0; i < n; i++) {
@@ -81,18 +85,16 @@ int main() {
 
     // Measure time for efficient version
     start = clock();
-    int countEfficient = countTripletsSumEfficient(arr, n, sum);
+    countTripletsSumEfficient(arr, n, sum);
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Efficient count: %d\n", countEfficient);
     printf("Time taken (efficient): %f seconds\n", cpu_time_used);
 
     // Measure time for brute-force version
     start = clock();
-    int countBruteForce = countTripletsSumBruteForce(arr, n, sum);
+    countTripletsSumBruteForce(arr, n, sum);
     end = clock();
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Brute force count: %d\n", countBruteForce);
     printf("Time taken (brute force): %f seconds\n", cpu_time_used);
 
     free(arr);

@@ -56,7 +56,7 @@ int countTripletsSumBruteForce(int arr[], int n, int sum) {
 int main(void) {
     FILE *file;
     //file = fopen("10int_1.txt", "r");
-    //file = fopen("1Kint_1.txt", "r");
+    file = fopen("1Kint_1.txt", "r");
     //file = fopen("2Kint_1.txt", "r");
     //file = fopen("3Kint_1.txt", "r");
     //file = fopen("4Kint_1.txt", "r");
@@ -66,7 +66,7 @@ int main(void) {
     //file = fopen("20Kint_1.txt", "r");
     //file = fopen("30Kint_1.txt", "r");
     //file = fopen("40Kint_1.txt", "r");
-    file = fopen("50Kint_1.txt", "r");
+    //file = fopen("50Kint_1.txt", "r");
 
     if (file == NULL) {
         printf("Error opening file\n");

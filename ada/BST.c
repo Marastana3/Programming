@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 struct node{
  int key;
  struct node* left;
@@ -21,7 +22,7 @@ Node newNode(int key){
 }
 
 /* Insert a new node into a BST */
-void insert(Node* root, Node z) {
+void insert(Node *root, Node z) {
  Node x,y;
  y=NULL;
  x=*root;
@@ -165,7 +166,7 @@ bool CheckExistTwoNodesWithSum(Node root, int s) {
     int len = 0;
     bool flag = false;
 
-    void Inorder(Node root) {
+    void Inorder(Node root){
         if (root == NULL) {
             return;
         }
@@ -192,48 +193,65 @@ bool CheckExistTwoNodesWithSum(Node root, int s) {
 }
 
 int main(void){
+    clock_t start, end;
+    double cpu_time_used;
     Node tree=NULL;
 
-    insert(&tree,newNode(8));
-    insert(&tree,newNode(15));
-    insert(&tree,newNode(2));
-    insert(&tree,newNode(5));
-    insert(&tree,newNode(4));
-    insert(&tree,newNode(10));
-    insert(&tree,newNode(3));
-    insert(&tree,newNode(1));
-    insert(&tree,newNode(20));
-    insert(&tree,newNode(18));
-    insert(&tree,newNode(7));
-    insert(&tree,newNode(22));
+    // Seed the random number generator with the current time
+    srand(time(NULL));
 
-    printf("The order is: ");
-    inorder(tree);
-    printf("\n");
+    //start timer
+    start = clock();
 
-    printf("The pre-order is: ");
-    preorder(tree);
-    printf("\n");
+    // Insert 1000000 random keys between 1 and 1000000
+    for (int i = 0; i < 1000000; ++i) {
+        int key = rand() % 1000000 + 1;
+        insert(&tree,newNode(key));
+    }
+    end = clock();
+    int height1 = height(tree);
 
-    int h= height(tree);
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("Time used for Insertion of 1000000 random keys for constructed BST tree is: %f seconds and the height is : %d\n", cpu_time_used, height1);
 
-    int found = search(tree, 10);
+    // Insert 1000000 increasing keys between 1 and 1000000
+    start = clock();
+    for (int i = 0; i < 1000000; ++i) {
+        int key = i;
+        insert(&tree, newNode(key));
+    }
+    end = clock();
+    int height2 = height(tree);
 
-    int success = successor(tree, 4);
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("Time used for Insertion of 1000000 increasing keys for constructed BST tree is: %f seconds and the height is : %d\n", cpu_time_used, height2);
+   // printf("The order is: ");
+   // inorder(tree);
+   // printf("\n");
 
-    printf("height: %d, found: %d, success: %d\n", h, found, success);
+   // printf("The pre-order is: ");
+   // preorder(tree);
+   // printf("\n");
 
-    if(IsPerfectlyBalanced(tree))
-        printf("The tree is perfectly balanced\n");
-    else printf("The tree is not perfectly balanced!\n");
+    //int h= height(tree);
 
-    int k = 16;
-    Node closest = SearchClosest(tree, k);
-    printf("The closest value to %d is : %d\n", k, closest->key);
+    //int found = search(tree, 10);
 
-    if(CheckExistTwoNodesWithSum(tree, 12))
-        printf("TRUE\n");
-    else printf("FALSE\n");
+    //int success = successor(tree, 4);
+
+    //printf("height: %d, found: %d, success: %d\n", h, found, success);
+
+   // if(IsPerfectlyBalanced(tree))
+    //    printf("The tree is perfectly balanced\n");
+    //else printf("The tree is not perfectly balanced!\n");
+
+   // int k = 16;
+   // Node closest = SearchClosest(tree, k);
+   // printf("The closest value to %d is : %d\n", k, closest->key);
+
+   // if(CheckExistTwoNodesWithSum(tree, 12))
+       // printf("TRUE\n");
+    //else printf("FALSE\n");
 
     return 0;
 

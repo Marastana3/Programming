@@ -12,13 +12,19 @@ struct node
 };
 
 // Function to get the height of a node
-int height(struct node *n)
-{
-    if (n == NULL)
-    {
+int height(struct node *root){
+    if(root == NULL)
         return 0;
+    else{
+
+        int heightLeft = height(root->left);
+        int heightRight = height(root->right);
+
+        if (heightLeft > heightRight)
+            return (heightLeft + 1);
+        else
+            return (heightRight + 1);
     }
-    return n->height;
 }
 
 // Function to get the maximum of two integers
@@ -40,7 +46,7 @@ struct node *newNode(int key)
 
 // Function to right rotate subtree rooted with y
 struct node *rightRotate(struct node *y)
-{
+{   printf("Right : %d\n", y->key);
     struct node *x = y->left;
     struct node *T2 = x->right;
 
@@ -58,7 +64,8 @@ struct node *rightRotate(struct node *y)
 
 // Function to left rotate subtree rooted with x
 struct node *leftRotate(struct node *x)
-{
+{   
+    printf("Left : %d\n", x->key);
     struct node *y = x->right;
     struct node *T2 = y->left;
 
@@ -74,8 +81,8 @@ struct node *leftRotate(struct node *x)
     return y;
 }
 
-// Get the balance factor of a node
-int getBalance(struct node *n)
+// Helper function for checking the balance factor of a node
+int checkBalance(struct node *n)
 {
     if (n == NULL)
     {
@@ -102,7 +109,7 @@ struct node *insert(struct node *node, int key)
         node->right = insert(node->right, key);
     }
     else
-    { // Equal keys are not allowed in BST
+    { 
         return node;
     }
 
@@ -110,7 +117,7 @@ struct node *insert(struct node *node, int key)
     node->height = 1 + max(height(node->left), height(node->right));
 
     // Get the balance factor of this ancestor node to check whether this node became unbalanced
-    int balance = getBalance(node);
+    int balance = checkBalance(node);
 
     // If this node becomes unbalanced, then there are 4 cases
     // Left Left Case
@@ -153,6 +160,14 @@ void preorder(struct node *root){
     }
 }
 
+void inorder(struct node *root){
+    if(root != NULL){
+        inorder(root->left);
+        printf("%d ", root->key);
+        inorder(root->right);
+    }
+}
+
 int main(void)
 {   
     //clock_t start, end;
@@ -168,8 +183,16 @@ int main(void)
      root = insert(root, 16);
      root = insert(root, 4);
 
+    printf("Preorder: ");
     preorder(root);
     printf("\n");
+
+    printf("Inorder : ");
+    inorder(root);
+    printf("\n");
+
+    int height1 = height(root);
+    printf("The height : %d\n", height1);
 /*
     // Seed the random number generator with the current time
     srand(time(NULL));

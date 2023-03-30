@@ -42,16 +42,16 @@ void insert_word(struct TrieNode* root, char* word) {
 }
 
 // Recursively print all the words in the Trie in alphabetical order
-void print_words(struct TrieNode* node, char* buffer, int depth) {
+void print_words(struct TrieNode* node, char* buffer, int size) {
     if (node->is_end_of_word) {
-        buffer[depth] = '\0';
+        buffer[size] = '\0';
         printf("%s\n", buffer);
     }
 
     for (int i = 0; i < ALPHABET_SIZE; i++) {
         if (node->children[i]) {
-            buffer[depth] = i + 'a';
-            print_words(node->children[i], buffer, depth + 1);
+            buffer[size] = i + 'a';
+            print_words(node->children[i], buffer, size + 1);
         }
     }
 }
@@ -63,7 +63,7 @@ void print_alphabetical(struct TrieNode* root) {
 }
 
 // Test program
-int main() {
+int main(void) {
     struct TrieNode* root = initialize_node();
     insert_word(root, "hello");
     insert_word(root, "world");
@@ -74,6 +74,8 @@ int main() {
     insert_word(root, "kilogram");
     insert_word(root, "velociraptor");
     insert_word(root, "zebra");
+    insert_word(root, "elephant");
+    insert_word(root, "helicopter");
 
     printf("Words in alphabetical order:\n");
     print_alphabetical(root);

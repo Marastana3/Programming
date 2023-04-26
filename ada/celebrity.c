@@ -6,12 +6,12 @@
 // Returns true if a knows b, false otherwise
 bool knows(int a, int b) {
     
-    int matrix[N][N] = {
-        {0, 1, 1, 0},
-        {0, 0, 1, 0},
-        {0, 0, 0, 0},
-        {0, 0, 1, 0}
-    };
+   int matrix[N][N] = {
+    {0, 1, 1, 0},
+    {0, 0, 1, 0},
+    {0, 0, 0, 0},
+    {0, 0, 1, 0}
+};
     return matrix[a][b];
 }
 

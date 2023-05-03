@@ -33,7 +33,7 @@ int findCelebrity() {
     return -1;
 }
 
-int main() {
+int main(void) {
     int celebrity = findCelebrity();
     if (celebrity == -1) {
         printf("There is no celebrity.\n");

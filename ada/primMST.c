@@ -26,7 +26,6 @@ void primMST(int graph[MAX_LEN][MAX_LEN]) {
     for (int i = 0; i < MAX_LEN; ++i)
         key[i] = INT_MAX, mstSet[i] = false;
     key[0] = 0;
-    parent[0] = -1;
     for (int i = 0; i < MAX_LEN - 1; ++i) {
         int u = minKey(key, mstSet);
         mstSet[u] = true;

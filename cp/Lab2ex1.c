@@ -11,13 +11,13 @@ int main(void){
                 c = getchar();
             }
             if(c == '\n'){
-                printf("\n");
+                putchar('\n');
                 continue;
             }
             else 
-              printf(" ");
+              putchar(' ');
         }
-      printf("%c", c);
+      putchar(c);
     }
     return 0;
 }
